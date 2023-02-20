@@ -1,4 +1,4 @@
 
 kubectl create secret generic regcred \
-    --from-file=.dockerconfigjson=<path/to/.docker/config.json> \
+    --from-file=.dockerconfigjson=$HOME/.docker/config.json \ #Replace with your docker config json
     --type=kubernetes.io/dockerconfigjson
