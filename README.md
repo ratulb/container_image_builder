@@ -64,5 +64,35 @@ We need to provide the `--tar-path` and `--no-push` flags for that.
 
 We can also run kaniko as one-shot container to build our container and push it to docker registry. For that - we would need to create a `storage volume` in our k8s cluster and make that volume available to `kaniko` pod via `volume claim`. Also, we would need create a docker registry secret and provide it to `kaniko` pod so that it can authenticate with docker registry to push to created container. We detail the steps below:
 
--  
+-  The `registry-secret.cmd` file has the `kubectl` command to create the `secret` that would be used by the `kaniko` container to authenicate itself with docker registry before it pushes the generated image to the registry.
+-  The volume respure defintion is defined in `volume.yaml` and the corresponding volume claim in `volume-claim.yaml` file.
+-  `kaniko-pod.yaml` holds the pod defintion for the `kaniko pod` itself. All the required resources for kaniko pod is speficied in this yaml resource defintion file.
+-  Finally - we can run the `create-image.sh` script which combines all steps and executes them in order. The successful output should look as shown below:
+
+```bash
+**kubectl logs kaniko**
+DEBU[0000] Copying file /workspace/Dockerfile to /kaniko/Dockerfile 
+DEBU[0002] Skip resolving path /kaniko/Dockerfile       
+DEBU[0002] Skip resolving path /workspace               
+DEBU[0002] Skip resolving path /cache                   
+DEBU[0002] Skip resolving path                          
+DEBU[0002] Skip resolving path                          
+DEBU[0002] Skip resolving path                          
+DEBU[0002] Skip resolving path                          
+DEBU[0002] Built stage name to index map: map[]         
+INFO[0002] Retrieving image manifest ubuntu             
+INFO[0002] Retrieving image ubuntu from registry index.docker.io 
+INFO[0004] Built cross stage deps: map[]                
+INFO[0004] Retrieving image manifest ubuntu             
+INFO[0004] Returning cached image manifest              
+INFO[0004] Executing 0 build triggers                   
+INFO[0004] Building stage 'ubuntu' [idx: '0', base-idx: '-1'] 
+INFO[0004] Skipping unpacking as no commands require it. 
+INFO[0004] ENTRYPOINT ["/bin/bash", "-c", "echo hello"] 
+DEBU[0004] Build: skipping snapshot for [ENTRYPOINT ["/bin/bash", "-c", "echo hello"]] 
+DEBU[0004] Mapping stage idx 0 to digest sha256:6c7f12d9981293a0c6e0d41ebe1d5c5e8df640d88a022cf21763d7ad4e766d72 
+DEBU[0004] Mapping digest sha256:6c7f12d9981293a0c6e0d41ebe1d5c5e8df640d88a022cf21763d7ad4e766d72 to cachekey  
+INFO[0004] Pushing image to ratulb/echo-hello:3.3.3     
+
+```
 
