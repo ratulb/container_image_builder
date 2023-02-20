@@ -26,6 +26,8 @@ FROM ubuntu
 ENTRYPOINT ["/bin/bash", "-c", "echo hello"]
 ```
 
+#### Push to docker registry lauching kaniko container
+
 With the docker file in place - lets trigger container build process by running the `gcr.io/kaniko-project/executor` container. Also, we are assuming our current working directory as the project root directory for the following example:
 
 ```bash
@@ -33,13 +35,21 @@ sudo nerdctl run --rm -v $(pwd):/workspace -v ~/.docker/config.json:/workspace/c
 --env DOCKER_CONFIG=/workspace gcr.io/kaniko-project/executor -d ratulb/echo:1.0.0 -v debug
 ```
 
--  The command starts by using nerdctl to launch the gcr.io/kaniko-project/executor container in containerd. This container is used to create and push a container image to a Docker registry. 
+-  The command starts by using `nerdctl` to launch the `gcr.io/kaniko-project/executor` container in containerd. This container is used to create and push a container image to a Docker registry. 
 
--  The command then mounts the current working directory (pwd) to the workspace directory inside the container. This allows the executor to access any files or directories that are needed for building and pushing the image. 
+-  The command then mounts the current working directory `(pwd)` to the workspace directory inside the container. This allows the executor to access any files or directories that are needed for building and pushing the image. 
 
--  The command also mounts the user's Docker configuration file (config.json) into the workspace directory inside the container. This allows Kaniko to authenticate with the Docker registry when pushing images. 
+-  The command also mounts the user's Docker configuration file (`config.json`) into the workspace directory inside the container. This allows Kaniko to authenticate with the Docker registry when pushing images. 
 
--  The command then sets an environment variable, DOCKER_CONFIG, which points to the mounted config.json file in order for Kaniko to use it for authentication purposes. 
+-  The command then sets an environment variable, `DOCKER_CONFIG`, which points to the mounted `config.json` file in order for Kaniko to use it for authentication purposes. 
 
--  Finally, the command specifies that Kaniko should build and push an image with tag ratulb/echo:1.1.1 and run in debug mode so that more detailed output is provided during execution of Kaniko commands.
+-  Finally, the command specifies that Kaniko should build and push an image with tag `ratulb/echo:1.1.1` and run in debug mode so that more detailed output is provided during execution of Kaniko commands.
 
+Now we can launch the container:
+
+```bash
+sudo nerdctl run ratulb/echo:1.1.1
+hello
+```
+
+#### Push to docker registry lauching kaniko as a pod in k8s cluster
