@@ -45,7 +45,7 @@ sudo nerdctl run --rm -v $(pwd):/workspace -v ~/.docker/config.json:/workspace/c
 
 -  Finally, the command specifies that Kaniko should build and push an image with tag `ratulb/echo:1.1.1` and run in debug mode so that more detailed output is provided during execution of Kaniko commands.
 
-Now we can launch the container:
+Now we can launch the container - nerdctl would pull down the container from upstream docker registry and launch it:
 
 ```bash
 sudo nerdctl run ratulb/echo:1.1.1
