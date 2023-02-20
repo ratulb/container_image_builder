@@ -1,6 +1,8 @@
 # container_image_builder
 ### Building a Container Image Using [Google Kaniko Container](https://github.com/GoogleContainerTools/kaniko) on [Containerd](https://github.com/containerd/containerd) Runtime 
 
+Note***> One line gist - edit 
+
 Containerd is an open source container runtime that provides an industry-standard container execution environment for running containers. It is designed to be lightweight, portable, and extensible. With the help of Google’s Kaniko container, you can build and push container images to a Docker registry(or any other) without having to install Docker. Here we show how to build(and push a container) image on Containerd runtime using Google Kaniko container.
 
 
