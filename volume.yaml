@@ -11,4 +11,4 @@ spec:
     - ReadWriteOnce
   storageClassName: local-storage
   hostPath:
-    path: /home/ratulb/work/kaniko
+    path: /home/ratulb/work/kaniko # Replace existing directory containg Docker file
