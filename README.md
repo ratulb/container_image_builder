@@ -62,11 +62,45 @@ We need to provide the `--tar-path` and `--no-push` flags for that.
 
 #### Push to docker registry lauching kaniko as a pod in k8s cluster
 
-We can also run kaniko as one-shot container to build our container and push it to docker registry. For that - we would need to create a `storage volume` in our k8s cluster and make that volume available to `kaniko` pod via `volume claim`. Also, we would need create a docker registry secret and provide it to `kaniko` pod so that it can authenticate with docker registry to push to created container. We detail the steps below:
+We can also run kaniko as one-shot container to build our container and push it to docker registry. For that - we would need to create a `storage volume` in our k8s cluster and make that volume available to `kaniko` pod via `volume claim`. Also, we would need create a docker registry secret and provide it to `kaniko` pod so that it can authenticate with docker registry to push to created container. Following is the kaniko pod defintion.
+
+```bash
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kaniko
+spec:
+  containers:
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:latest
+    args: [ "--context=/workspace",
+            "--dockerfile=Dockerfile",
+            "--verbosity=debug",
+            "--destination=ratulb/echo-hello:3.3.3"] # replace with your dockerhub account
+    volumeMounts:
+      - name: kaniko-secret
+        mountPath: /kaniko/.docker
+      - name: dockerfile-storage
+        mountPath: /workspace
+  restartPolicy: Never
+  volumes:
+    - name: kaniko-secret
+      secret:
+        secretName: regcred
+        items:
+          - key: .dockerconfigjson
+            path: config.json
+    - name: dockerfile-storage
+      persistentVolumeClaim:
+        claimName: dockerfile-claim
+```
+
+
+Resources and scripts:
 
 -  The `registry-secret.cmd` file has the `kubectl` command to create the `secret` that would be used by the `kaniko` container to authenicate itself with docker registry before it pushes the generated image to the registry.
 -  The volume respure defintion is defined in `volume.yaml` and the corresponding volume claim in `volume-claim.yaml` file.
--  `kaniko-pod.yaml` holds the pod defintion for the `kaniko pod` itself. All the required resources for kaniko pod is speficied in this yaml resource defintion file.
+-  `kaniko-pod.yaml` holds the pod defintion for the `kaniko pod` itself(as shown above). All the required resources for kaniko pod is speficied in this yaml resource defintion file.
 -  Finally - we can run the `create-image.sh` script which combines all steps and executes them in order. The successful output should look as shown below:
 
 ```bash
