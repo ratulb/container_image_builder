@@ -1,7 +1,7 @@
 # container_image_builder
 ### Building a Container Image Using [Google Kaniko Container](https://github.com/GoogleContainerTools/kaniko) on [Containerd](https://github.com/containerd/containerd) Runtime 
 
-Containerd is an open source container runtime that provides an industry-standard container execution environment for running containers. It is designed to be lightweight, portable, and extensible. With the help of Google’s Kaniko container, you can now build and push container images to a Docker registry without having to install Docker. Here we show how to build(and push a container) image on Containerd runtime using Google Kaniko container.
+Containerd is an open source container runtime that provides an industry-standard container execution environment for running containers. It is designed to be lightweight, portable, and extensible. With the help of Google’s Kaniko container, you can now build and push container images to a Docker registry(or any other) without having to install Docker. Here we show how to build(and push a container) image on Containerd runtime using Google Kaniko container.
 
 
 #### Pre-requisite
@@ -51,6 +51,14 @@ Now we can launch the container:
 sudo nerdctl run ratulb/echo:1.1.1
 hello
 ```
+**We can also place the generated container to a local archive without pushing it to any registry:**
+
+```bash
+sudo nerdctl run --rm -v $(pwd):/workspace gcr.io/kaniko-project/executor
+  --tar-path=/workspace/image.tar --no-push --destination /workspace -v debug
+```
+
+We need to provide the `--tar-path` and `--no-push` flags for that.
 
 #### Push to docker registry lauching kaniko as a pod in k8s cluster
 
