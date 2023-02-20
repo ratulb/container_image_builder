@@ -53,3 +53,5 @@ hello
 ```
 
 #### Push to docker registry lauching kaniko as a pod in k8s cluster
+
+We can also run kaniko as one-shot container to build our container and push it to docker registry.
