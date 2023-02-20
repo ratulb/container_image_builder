@@ -54,4 +54,5 @@ hello
 
 #### Push to docker registry lauching kaniko as a pod in k8s cluster
 
-We can also run kaniko as one-shot container to build our container and push it to docker registry.
+We can also run kaniko as one-shot container to build our container and push it to docker registry. For that - we would need to create a `local storage` volume in our k8s cluster and make that volume available to `kaniko` pod via `volume claim`. Also, we would need create a docker registry secret and provide it to `kaniko` pod so that it can authenticate with docker registry to push to created container. We detail the steps below:
+
