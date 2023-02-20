@@ -29,7 +29,7 @@ FROM ubuntu
 ENTRYPOINT ["/bin/bash", "-c", "echo hello"]
 ```
 
-#### Push to docker registry lauching kaniko container
+#### Push to docker registry launching kaniko container
 
 With the docker file in place - lets trigger container build process by running the `gcr.io/kaniko-project/executor` container. Also, we are assuming our current working directory as the project root directory for the following example:
 
