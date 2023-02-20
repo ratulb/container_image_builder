@@ -8,6 +8,7 @@ spec:
     image: gcr.io/kaniko-project/executor:latest
     args: [ "--context=/workspace",
             "--dockerfile=Dockerfile",
+            "--verbosity=debug",
             "--destination=ratulb/echo-hello:1.1.1"] # replace with your dockerhub account
     volumeMounts:
       - name: kaniko-secret
