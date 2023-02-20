@@ -32,7 +32,7 @@ With the docker file in place - lets trigger container build process by running 
 
 ```bash
 sudo nerdctl run --rm -v $(pwd):/workspace -v ~/.docker/config.json:/workspace/config.json \
---env DOCKER_CONFIG=/workspace gcr.io/kaniko-project/executor -d ratulb/echo:1.0.0 -v debug
+--env DOCKER_CONFIG=/workspace gcr.io/kaniko-project/executor -d ratulb/echo:1.1.1 -v debug
 ```
 
 -  The command starts by using `nerdctl` to launch the `gcr.io/kaniko-project/executor` container in containerd. This container is used to create and push a container image to a Docker registry. 
