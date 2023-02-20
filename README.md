@@ -2,7 +2,7 @@
 ### Building a Container Image Using [Google Kaniko Container](https://github.com/GoogleContainerTools/kaniko) on [Containerd](https://github.com/containerd/containerd) Runtime 
 
 ### One line gist
-> 
+> At the least, you can change the `create-registry.cmd` for registry credentials and volume.yaml for volume path and run `create-image.sh` for creating and pushing your image by running `kaniko` as a POD. Well that's more than one line!
 
 Containerd is an open source container runtime that provides an industry-standard container execution environment for running containers. It is designed to be lightweight, portable, and extensible. With the help of Google’s Kaniko container, you can build and push container images to a Docker registry(or any other) without having to install Docker. Here we show how to build(and push a container) image on Containerd runtime using Google Kaniko container.
 
