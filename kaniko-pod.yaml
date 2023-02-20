@@ -9,7 +9,7 @@ spec:
     args: [ "--context=/workspace",
             "--dockerfile=Dockerfile",
             "--verbosity=debug",
-            "--destination=ratulb/echo-hello:1.1.1"] # replace with your dockerhub account
+            "--destination=ratulb/echo-hello:3.3.3"] # replace with your dockerhub account
     volumeMounts:
       - name: kaniko-secret
         mountPath: /kaniko/.docker
