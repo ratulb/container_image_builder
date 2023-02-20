@@ -64,7 +64,7 @@ We need to provide the `--tar-path` and `--no-push` flags for that.
 
 We can also run kaniko as one-shot container to build our container and push it to docker registry. For that - we would need to create a `storage volume` in our k8s cluster and make that volume available to `kaniko` pod via `volume claim`. Also, we would need create a docker registry secret and provide it to `kaniko` pod so that it can authenticate with docker registry to push to created container. Following is the kaniko pod defintion.
 
-```bash
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
