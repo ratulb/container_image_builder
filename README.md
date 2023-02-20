@@ -101,9 +101,9 @@ spec:
 
 **Resources and scripts:**
 
--  The `registry-secret.cmd` file has the `kubectl` command to create the `secret` that would be used by the `kaniko` container to authenicate itself with docker registry before it pushes the generated image to the registry.
--  The volume respure defintion is defined in `volume.yaml` and the corresponding volume claim in `volume-claim.yaml` file.
--  `kaniko-pod.yaml` holds the pod defintion for the `kaniko pod` itself(as shown above). All the required resources for kaniko pod is speficied in this yaml resource defintion file.
+-  The `registry-secret.cmd` file has the `kubectl` command to create the `secret` that would be used by the `kaniko` container to authenticate itself with docker registry before it pushes the generated image to the registry.
+-  The volume resource definition is defined in `volume.yaml` and the corresponding volume claim in `volume-claim.yaml` file.
+-  `kaniko-pod.yaml` holds the pod definition for the `kaniko pod` itself(as shown above). All the required resources for kaniko pod is specified in this yaml resource definition file.
 -  Finally - we can run the `create-image.sh` script which combines all steps and executes them in order. The successful output should look as shown below:
 
 ```bash
