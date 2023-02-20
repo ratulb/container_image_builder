@@ -96,7 +96,7 @@ spec:
 ```
 
 
-Resources and scripts:
+**Resources and scripts:**
 
 -  The `registry-secret.cmd` file has the `kubectl` command to create the `secret` that would be used by the `kaniko` container to authenicate itself with docker registry before it pushes the generated image to the registry.
 -  The volume respure defintion is defined in `volume.yaml` and the corresponding volume claim in `volume-claim.yaml` file.
